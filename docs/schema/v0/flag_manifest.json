@@ -1,0 +1,122 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "flag": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/boolType"
+                },
+                {
+                    "$ref": "#/$defs/stringType"
+                },
+                {
+                    "$ref": "#/$defs/intType"
+                },
+                {
+                    "$ref": "#/$defs/floatType"
+                },
+                {
+                    "$ref": "#/$defs/objectType"
+                }
+            ],
+            "required": ["flag_type", "default_value"]
+        },
+        "boolType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["bool"]
+                },
+                "default_value": {
+                    "type": "boolean" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "stringType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["string"]
+                },
+                "default_value": {
+                    "type": "string" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "intType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["int"]
+                },
+                "default_value": {
+                    "type": "integer" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "floatType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["float"]
+                },
+                "default_value": {
+                    "type": "number" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "objectType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["object"]
+                },
+                "default_value": {
+                    "type": "object" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }    
+    },
+    "title": "Flag Manifest",
+    "description": "Manifest meant to describe the flags of one flag configuration",
+    "type": "object",
+    "properties": {
+        "flags": {
+            "description": "Object containing the flags in the config",
+            "type": "object",
+            "patternProperties": {
+                "^.{1,}$": {
+                    "description": "The definition of one flag",
+                    "$ref": "#/$defs/flag"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": ["flags"]
+}
