@@ -4,16 +4,16 @@
         "flag": {
             "oneOf": [
                 {
-                    "$ref": "#/$defs/boolType"
+                    "$ref": "#/$defs/booleanType"
                 },
                 {
                     "$ref": "#/$defs/stringType"
                 },
                 {
-                    "$ref": "#/$defs/intType"
+                    "$ref": "#/$defs/integerType"
                 },
                 {
-                    "$ref": "#/$defs/floatType"
+                    "$ref": "#/$defs/numberType"
                 },
                 {
                     "$ref": "#/$defs/objectType"
@@ -21,12 +21,12 @@
             ],
             "required": ["flag_type", "default_value"]
         },
-        "boolType": {
+        "booleanType": {
             "type": "object",
             "properties": {
                 "flag_type": {
                     "type": "string",
-                    "enum": ["bool"]
+                    "enum": ["boolean"]
                 },
                 "default_value": {
                     "type": "boolean" 
@@ -53,12 +53,12 @@
             },
             "additionalProperties": false
         },
-        "intType": {
+        "integerType": {
             "type": "object",
             "properties": {
                 "flag_type": {
                     "type": "string",
-                    "enum": ["int"]
+                    "enum": ["integer"]
                 },
                 "default_value": {
                     "type": "integer" 
@@ -69,12 +69,12 @@
             },
             "additionalProperties": false
         },
-        "floatType": {
+        "numberType": {
             "type": "object",
             "properties": {
                 "flag_type": {
                     "type": "string",
-                    "enum": ["float"]
+                    "enum": ["number"]
                 },
                 "default_value": {
                     "type": "number" 
