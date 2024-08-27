@@ -1,0 +1,122 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Flag Manifest",
+    "description": "Describes a configuration of OpenFeature flags, including info such as their types and default values.",
+    "type": "object",
+    "properties": {
+        "flags": {
+            "description": "Object containing the flags in the config",
+            "type": "object",
+            "patternProperties": {
+                "^.{1,}$": {
+                    "description": "The definition of one flag",
+                    "$ref": "#/$defs/flag"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "required": ["flags"],
+    "$defs": {
+        "flag": {
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/booleanType"
+                },
+                {
+                    "$ref": "#/$defs/stringType"
+                },
+                {
+                    "$ref": "#/$defs/integerType"
+                },
+                {
+                    "$ref": "#/$defs/numberType"
+                },
+                {
+                    "$ref": "#/$defs/objectType"
+                }
+            ],
+            "required": ["flag_type", "default_value"]
+        },
+        "booleanType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["boolean"]
+                },
+                "default_value": {
+                    "type": "boolean" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "stringType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["string"]
+                },
+                "default_value": {
+                    "type": "string" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "integerType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["integer"]
+                },
+                "default_value": {
+                    "type": "integer" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "numberType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["number"]
+                },
+                "default_value": {
+                    "type": "number" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "objectType": {
+            "type": "object",
+            "properties": {
+                "flag_type": {
+                    "type": "string",
+                    "enum": ["object"]
+                },
+                "default_value": {
+                    "type": "object" 
+                },
+                "description": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }    
+    }
+}
