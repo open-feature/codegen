@@ -10,6 +10,7 @@ import (
 	"github.com/iancoleman/strcase"
 )
 
+// TmplData contains the Golang-specific data and the base data for the codegen.
 type TmplData struct {
 	*generator.BaseTmplData
 	GoPackage string
@@ -20,6 +21,7 @@ type genImpl struct {
 	goPackage string
 }
 
+// BaseTmplDataInfo provides the base template data for the codegen.
 func (td *TmplData) BaseTmplDataInfo() *generator.BaseTmplData {
 	return td.BaseTmplData
 }
@@ -116,6 +118,7 @@ func typeString(flagType generator.FlagType) string {
 
 // Go Funcs END
 
+// Generate generates the Go flag accessors for OpenFeature.
 func (g *genImpl) Generate(input generator.Input) error {
 	funcs := template.FuncMap{
 		"FlagVarName":         flagVarName,

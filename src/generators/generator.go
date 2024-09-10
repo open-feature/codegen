@@ -45,11 +45,13 @@ type Input struct {
 	BaseData *BaseTmplData
 }
 
+// Generator provides interface to generate language specific, strongly-typed flag accessors.
 type Generator interface {
 	Generate(input Input) error
 	SupportedFlagTypes() map[FlagType]bool
 }
 
+// GenerateFile receives data for the Go template engine and outputs the contents to the file.
 func GenerateFile(funcs template.FuncMap, outputPath string, contents string, data TmplDataInterface) error {
 	contentsTmpl, err := template.New("contents").Funcs(funcs).Parse(contents)
 	if err != nil {

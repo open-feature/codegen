@@ -55,6 +55,7 @@ func unmarshalFlagManifest(data []byte) (*generator.BaseTmplData, error) {
 	if err = sch.Validate(dynamic); err != nil {
 		return nil, err
 	}
+	// All casts can be done directly since the JSON is already validated by the schema.
 	iFlags := dynamic["flags"]
 	flags := iFlags.(map[string]interface{})
 	btData := generator.BaseTmplData{
