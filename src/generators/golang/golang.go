@@ -92,12 +92,12 @@ func supportImports(flags []*generator.FlagTmplData) []string {
 	return res
 }
 
-func defaultValueLiteral(flag *generator.FlagTmplData) (string, error) {
+func defaultValueLiteral(flag *generator.FlagTmplData) string {
 	switch flag.Type {
 	case generator.StringType:
-		return strconv.Quote(flag.DefaultValue), nil
+		return strconv.Quote(flag.DefaultValue)
 	default:
-		return flag.DefaultValue, nil
+		return flag.DefaultValue
 	}
 }
 

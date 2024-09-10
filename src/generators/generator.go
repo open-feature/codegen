@@ -55,22 +55,22 @@ type Generator interface {
 func GenerateFile(funcs template.FuncMap, outputPath string, contents string, data TmplDataInterface) error {
 	contentsTmpl, err := template.New("contents").Funcs(funcs).Parse(contents)
 	if err != nil {
-		return err
+		return fmt.Errorf("error initializing template: %v", err)
 	}
 
 	var buf bytes.Buffer
 	if err := contentsTmpl.Execute(&buf, data); err != nil {
-		return err
+		return fmt.Errorf("error executing template: %v", err)
 	}
 
 	f, err := os.Create(outputPath)
 	if err != nil {
-		return err
+		return fmt.Errorf("error creating file %q: %v", outputPath, err)
 	}
 	defer f.Close()
 	writtenBytes, err := f.Write(buf.Bytes())
 	if err != nil {
-		return err
+		return fmt.Errorf("error writing contents to file %q: %v", outputPath, err)
 	}
 	if writtenBytes != buf.Len() {
 		return fmt.Errorf("error writing entire file %v: writtenBytes != expectedWrittenBytes", outputPath)

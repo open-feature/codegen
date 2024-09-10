@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path"
 	"strconv"
@@ -41,19 +42,19 @@ func getDefaultValue(defaultValue interface{}, flagType generator.FlagType) stri
 	return ""
 }
 
-func unmarshalFlagManifest(data []byte) (*generator.BaseTmplData, error) {
+func unmarshalFlagManifest(data []byte, supportedFlagTypes map[generator.FlagType]bool) (*generator.BaseTmplData, error) {
 	dynamic := make(map[string]interface{})
 	err := json.Unmarshal(data, &dynamic)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error unmarshalling JSON: %v", err)
 	}
 
 	sch, err := jsonschema.Compile(flagManifestSchema)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error compiling JSON schema: %v", err)
 	}
 	if err = sch.Validate(dynamic); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error validating JSON schema: %v", err)
 	}
 	// All casts can be done directly since the JSON is already validated by the schema.
 	iFlags := dynamic["flags"]
@@ -63,7 +64,12 @@ func unmarshalFlagManifest(data []byte) (*generator.BaseTmplData, error) {
 	}
 	for flagKey, iFlagData := range flags {
 		flagData := iFlagData.(map[string]interface{})
-		flagType := stringToFlagType[flagData["flag_type"].(string)]
+		flagTypeString := flagData["flag_type"].(string)
+		flagType := stringToFlagType[flagTypeString]
+		if !supportedFlagTypes[flagType] {
+			log.Printf("Skipping generation of flag %q as type %v is not supported for this language", flagKey, flagTypeString)
+			continue
+		}
 		docs := flagData["description"].(string)
 		defaultValue := getDefaultValue(flagData["default_value"], flagType)
 		btData.Flags = append(btData.Flags, &generator.FlagTmplData{
@@ -76,16 +82,16 @@ func unmarshalFlagManifest(data []byte) (*generator.BaseTmplData, error) {
 	return &btData, nil
 }
 
-func loadData(manifestPath string) (*generator.BaseTmplData, error) {
+func loadData(manifestPath string, supportedFlagTypes map[generator.FlagType]bool) (*generator.BaseTmplData, error) {
 	data, err := os.ReadFile(manifestPath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading contents from file %q", manifestPath)
 	}
-	return unmarshalFlagManifest(data)
+	return unmarshalFlagManifest(data, supportedFlagTypes)
 }
 
 func generate(gen generator.Generator) error {
-	btData, err := loadData(*flagManifestPath)
+	btData, err := loadData(*flagManifestPath, gen.SupportedFlagTypes())
 	if err != nil {
 		return err
 	}
