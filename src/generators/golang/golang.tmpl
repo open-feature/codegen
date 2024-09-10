@@ -1,0 +1,25 @@
+package {{.GoPackage}}
+
+import (
+{{- range $_, $p := SupportImports .Flags}}
+	{{$p}}
+{{- end}}
+)
+
+var client *openfeature.Client = nil
+
+
+{{- range .Flags}}
+// {{.Docs}}
+var {{FlagVarName .Name}} = struct {
+    Value providers.{{ProviderType .Type}}    
+}{
+    Value: func(ctx context.Context) ({{TypeString .Type}}, error) {
+        return client.{{FlagAccessFunc .Type}}(ctx, {{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, openfeature.EvaluationContext{})
+    },
+}
+{{- end}}
+
+func init() {
+	client = openfeature.NewClient("{{.GoPackage}}")
+}
