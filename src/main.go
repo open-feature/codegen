@@ -1,8 +1,8 @@
 package main
 
 import (
-	generator "codegen/generators"
-	"codegen/generators/golang"
+	generator "codegen/src/generators"
+	"codegen/src/generators/golang"
 	_ "embed"
 	"encoding/json"
 	"flag"

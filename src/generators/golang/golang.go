@@ -1,7 +1,7 @@
 package golang
 
 import (
-	generator "codegen/generators"
+	generator "codegen/src/generators"
 	_ "embed"
 	"sort"
 	"strconv"
@@ -86,7 +86,7 @@ func supportImports(flags []*generator.FlagTmplData) []string {
 	if len(flags) > 0 {
 		res = append(res, "\"context\"")
 		res = append(res, "\"github.com/open-feature/go-sdk/openfeature\"")
-		res = append(res, "\"codegen/providers\"")
+		res = append(res, "\"codegen/src/providers\"")
 	}
 	sort.Strings(res)
 	return res
