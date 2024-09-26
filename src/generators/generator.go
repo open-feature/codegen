@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"path"
 	"text/template"
 )
 
@@ -52,7 +53,7 @@ type Generator interface {
 }
 
 // GenerateFile receives data for the Go template engine and outputs the contents to the file.
-func GenerateFile(funcs template.FuncMap, outputPath string, contents string, data TmplDataInterface) error {
+func GenerateFile(funcs template.FuncMap, filename string, contents string, data TmplDataInterface) error {
 	contentsTmpl, err := template.New("contents").Funcs(funcs).Parse(contents)
 	if err != nil {
 		return fmt.Errorf("error initializing template: %v", err)
@@ -63,17 +64,17 @@ func GenerateFile(funcs template.FuncMap, outputPath string, contents string, da
 		return fmt.Errorf("error executing template: %v", err)
 	}
 
-	f, err := os.Create(outputPath)
+	f, err := os.Create(path.Join(data.BaseTmplDataInfo().OutputDir, filename))
 	if err != nil {
-		return fmt.Errorf("error creating file %q: %v", outputPath, err)
+		return fmt.Errorf("error creating file %q: %v", filename, err)
 	}
 	defer f.Close()
 	writtenBytes, err := f.Write(buf.Bytes())
 	if err != nil {
-		return fmt.Errorf("error writing contents to file %q: %v", outputPath, err)
+		return fmt.Errorf("error writing contents to file %q: %v", filename, err)
 	}
 	if writtenBytes != buf.Len() {
-		return fmt.Errorf("error writing entire file %v: writtenBytes != expectedWrittenBytes", outputPath)
+		return fmt.Errorf("error writing entire file %v: writtenBytes != expectedWrittenBytes", filename)
 	}
 
 	return nil
