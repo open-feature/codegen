@@ -1,8 +1,9 @@
 package main
 
 import (
-	generator "codegen/generators"
-	"codegen/generators/golang"
+	flagmanifest "codegen/docs/schema/v0"
+	generator "codegen/src/generators"
+	"codegen/src/generators/golang"
 	_ "embed"
 	"encoding/json"
 	"flag"
@@ -14,8 +15,6 @@ import (
 
 	jsonschema "github.com/santhosh-tekuri/jsonschema/v5"
 )
-
-const flagManifestSchema = "../docs/schema/v0/flag_manifest.json"
 
 var flagManifestPath = flag.String("flag_manifest_path", "", "Path to the flag manifest.")
 var moduleName = flag.String("module_name", "", "Name of the module to be generated.")
@@ -49,7 +48,7 @@ func unmarshalFlagManifest(data []byte, supportedFlagTypes map[generator.FlagTyp
 		return nil, fmt.Errorf("error unmarshalling JSON: %v", err)
 	}
 
-	sch, err := jsonschema.Compile(flagManifestSchema)
+	sch, err := jsonschema.CompileString(flagmanifest.SchemaPath, flagmanifest.Schema)
 	if err != nil {
 		return nil, fmt.Errorf("error compiling JSON schema: %v", err)
 	}

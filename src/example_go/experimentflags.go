@@ -1,7 +1,7 @@
 package experimentflags
 
 import (
-	"codegen/providers"
+	"codegen/src/providers"
 	"context"
 	"github.com/open-feature/go-sdk/openfeature"
 )
