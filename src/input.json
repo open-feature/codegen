@@ -1,9 +1,0 @@
-{
-	"flags": {
-      "myOpenFeatureFlag":{
-      	"flag_type": "boolean",
-        "default_value": false,
-        "description": "This is a flag."
-      }
-    }
-}
