@@ -36,16 +36,16 @@
           "$ref": "#/$defs/objectType"
         }
       ],
-      "required": ["flag_type", "default_value"]
+      "required": ["flagType", "defaultValue"]
     },
     "booleanType": {
       "type": "object",
       "properties": {
-        "flag_type": {
+        "flagType": {
           "type": "string",
           "enum": ["boolean"]
         },
-        "default_value": {
+        "defaultValue": {
           "type": "boolean"
         },
         "description": {
@@ -57,11 +57,11 @@
     "stringType": {
       "type": "object",
       "properties": {
-        "flag_type": {
+        "flagType": {
           "type": "string",
           "enum": ["string"]
         },
-        "default_value": {
+        "defaultValue": {
           "type": "string"
         },
         "description": {
@@ -73,11 +73,11 @@
     "integerType": {
       "type": "object",
       "properties": {
-        "flag_type": {
+        "flagType": {
           "type": "string",
           "enum": ["integer"]
         },
-        "default_value": {
+        "defaultValue": {
           "type": "integer"
         },
         "description": {
@@ -89,11 +89,11 @@
     "floatType": {
       "type": "object",
       "properties": {
-        "flag_type": {
+        "flagType": {
           "type": "string",
           "enum": ["float"]
         },
-        "default_value": {
+        "defaultValue": {
           "type": "number"
         },
         "description": {
@@ -105,11 +105,11 @@
     "objectType": {
       "type": "object",
       "properties": {
-        "flag_type": {
+        "flagType": {
           "type": "string",
           "enum": ["object"]
         },
-        "default_value": {
+        "defaultValue": {
           "type": "object"
         },
         "description": {

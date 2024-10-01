@@ -63,14 +63,14 @@ func unmarshalFlagManifest(data []byte, supportedFlagTypes map[generator.FlagTyp
 	}
 	for flagKey, iFlagData := range flags {
 		flagData := iFlagData.(map[string]interface{})
-		flagTypeString := flagData["flag_type"].(string)
+		flagTypeString := flagData["flagType"].(string)
 		flagType := stringToFlagType[flagTypeString]
 		if !supportedFlagTypes[flagType] {
 			log.Printf("Skipping generation of flag %q as type %v is not supported for this language", flagKey, flagTypeString)
 			continue
 		}
 		docs := flagData["description"].(string)
-		defaultValue := getDefaultValue(flagData["default_value"], flagType)
+		defaultValue := getDefaultValue(flagData["defaultValue"], flagType)
 		btData.Flags = append(btData.Flags, &generator.FlagTmplData{
 			Name:         flagKey,
 			Type:         flagType,
