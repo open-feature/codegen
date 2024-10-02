@@ -1,11 +1,12 @@
 package golang
 
 import (
-	generator "codegen/src/generators"
 	_ "embed"
 	"sort"
 	"strconv"
 	"text/template"
+
+	generator "codegen/src/generators"
 
 	"github.com/iancoleman/strcase"
 )
@@ -63,8 +64,9 @@ func providerType(t generator.FlagType) string {
 		return "BooleanProvider"
 	case generator.StringType:
 		return "StringProvider"
+	default:
+		return ""
 	}
-	return ""
 }
 
 func flagAccessFunc(t generator.FlagType) string {
@@ -77,8 +79,9 @@ func flagAccessFunc(t generator.FlagType) string {
 		return "BooleanValue"
 	case generator.StringType:
 		return "StringValue"
+	default:
+		return ""
 	}
-	return ""
 }
 
 func supportImports(flags []*generator.FlagTmplData) []string {
@@ -106,7 +109,7 @@ func typeString(flagType generator.FlagType) string {
 	case generator.StringType:
 		return "string"
 	case generator.IntType:
-		return "int"
+		return "int64"
 	case generator.BoolType:
 		return "bool"
 	case generator.FloatType:
