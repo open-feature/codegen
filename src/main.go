@@ -1,9 +1,6 @@
 package main
 
 import (
-	flagmanifest "codegen/docs/schema/v0"
-	generator "codegen/src/generators"
-	"codegen/src/generators/golang"
 	_ "embed"
 	"encoding/json"
 	"flag"
@@ -12,6 +9,10 @@ import (
 	"os"
 	"path"
 	"strconv"
+
+	flagmanifest "codegen/docs/schema/v0"
+	generator "codegen/src/generators"
+	"codegen/src/generators/golang"
 
 	jsonschema "github.com/santhosh-tekuri/jsonschema/v5"
 )
@@ -25,6 +26,7 @@ var stringToFlagType = map[string]generator.FlagType{
 	"boolean": generator.BoolType,
 	"float":   generator.FloatType,
 	"integer": generator.IntType,
+	"object":  generator.ObjectType,
 }
 
 func getDefaultValue(defaultValue interface{}, flagType generator.FlagType) string {
@@ -32,7 +34,10 @@ func getDefaultValue(defaultValue interface{}, flagType generator.FlagType) stri
 	case generator.BoolType:
 		return strconv.FormatBool(defaultValue.(bool))
 	case generator.IntType:
-		return strconv.FormatInt(defaultValue.(int64), 10)
+		//the conversion to float64 instead of integer typically occurs
+		//due to how JSON is parsed in Go. In Go's encoding/json package,
+		//all JSON numbers are unmarshaled into float64 by default when decoding into an interface{}.
+		return strconv.FormatFloat(defaultValue.(float64), 'g', -1, 64)
 	case generator.FloatType:
 		return strconv.FormatFloat(defaultValue.(float64), 'g', -1, 64)
 	case generator.StringType:
