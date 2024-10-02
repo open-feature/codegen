@@ -42,8 +42,9 @@ func getDefaultValue(defaultValue interface{}, flagType generator.FlagType) stri
 		return strconv.FormatFloat(defaultValue.(float64), 'g', -1, 64)
 	case generator.StringType:
 		return defaultValue.(string)
+	default:
+		return ""
 	}
-	return ""
 }
 
 func unmarshalFlagManifest(data []byte, supportedFlagTypes map[generator.FlagType]bool) (*generator.BaseTmplData, error) {
