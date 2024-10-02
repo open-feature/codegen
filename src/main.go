@@ -106,6 +106,8 @@ func generate(gen generator.Generator) error {
 	return gen.Generate(input)
 }
 
+// command line params working example
+// -flag_manifest_path "sample/golang/golang_sample.json" -output_path "sample/golang/golang_sample.go"
 func main() {
 	flag.Parse()
 	_, filename := path.Split(*outputPath)
