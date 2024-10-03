@@ -6,5 +6,5 @@ import (
 
 type BooleanProvider func(ctx context.Context) (bool, error)
 type FloatProvider func(ctx context.Context) (float64, error)
-type IntProvider func(ctx context.Context) (int, error)
+type IntProvider func(ctx context.Context) (int64, error)
 type StringProvider func(ctx context.Context) (string, error)
