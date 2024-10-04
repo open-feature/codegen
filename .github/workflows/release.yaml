@@ -34,6 +34,8 @@ jobs:
   go-release:
     needs: release-please
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     if: ${{ fromJSON(needs.release-please.outputs.release_created) }}
     steps:
       - name: Checkout
