@@ -6,37 +6,37 @@ import (
 	"strconv"
 	"text/template"
 
-	generator "codegen/src/generators"
+	"codegen/internal/generate"
+	"codegen/internal/generate/types"
 
 	"github.com/iancoleman/strcase"
 )
 
 // TmplData contains the Golang-specific data and the base data for the codegen.
 type TmplData struct {
-	*generator.BaseTmplData
+	*types.BaseTmplData
 	GoPackage string
 }
 
 type genImpl struct {
-	file      string
 	goPackage string
 }
 
 // BaseTmplDataInfo provides the base template data for the codegen.
-func (td *TmplData) BaseTmplDataInfo() *generator.BaseTmplData {
+func (td *TmplData) BaseTmplDataInfo() *types.BaseTmplData {
 	return td.BaseTmplData
 }
 
 // supportedFlagTypes is the flag types supported by the Go template.
-var supportedFlagTypes = map[generator.FlagType]bool{
-	generator.FloatType:  true,
-	generator.StringType: true,
-	generator.IntType:    true,
-	generator.BoolType:   true,
-	generator.ObjectType: false,
+var supportedFlagTypes = map[types.FlagType]bool{
+	types.FloatType:  true,
+	types.StringType: true,
+	types.IntType:    true,
+	types.BoolType:   true,
+	types.ObjectType: false,
 }
 
-func (*genImpl) SupportedFlagTypes() map[generator.FlagType]bool {
+func (*genImpl) SupportedFlagTypes() map[types.FlagType]bool {
 	return supportedFlagTypes
 }
 
@@ -54,65 +54,64 @@ func flagInitParam(flagName string) string {
 }
 
 // flagVarType returns the Go type for a flag's proto definition.
-func providerType(t generator.FlagType) string {
+func providerType(t types.FlagType) string {
 	switch t {
-	case generator.IntType:
+	case types.IntType:
 		return "IntProvider"
-	case generator.FloatType:
+	case types.FloatType:
 		return "FloatProvider"
-	case generator.BoolType:
+	case types.BoolType:
 		return "BooleanProvider"
-	case generator.StringType:
+	case types.StringType:
 		return "StringProvider"
 	default:
 		return ""
 	}
 }
 
-func flagAccessFunc(t generator.FlagType) string {
+func flagAccessFunc(t types.FlagType) string {
 	switch t {
-	case generator.IntType:
+	case types.IntType:
 		return "IntValue"
-	case generator.FloatType:
+	case types.FloatType:
 		return "FloatValue"
-	case generator.BoolType:
+	case types.BoolType:
 		return "BooleanValue"
-	case generator.StringType:
+	case types.StringType:
 		return "StringValue"
 	default:
 		return ""
 	}
 }
 
-func supportImports(flags []*generator.FlagTmplData) []string {
+func supportImports(flags []*types.FlagTmplData) []string {
 	var res []string
 	if len(flags) > 0 {
 		res = append(res, "\"context\"")
 		res = append(res, "\"github.com/open-feature/go-sdk/openfeature\"")
-		res = append(res, "\"codegen/src/providers\"")
 	}
 	sort.Strings(res)
 	return res
 }
 
-func defaultValueLiteral(flag *generator.FlagTmplData) string {
+func defaultValueLiteral(flag *types.FlagTmplData) string {
 	switch flag.Type {
-	case generator.StringType:
+	case types.StringType:
 		return strconv.Quote(flag.DefaultValue)
 	default:
 		return flag.DefaultValue
 	}
 }
 
-func typeString(flagType generator.FlagType) string {
+func typeString(flagType types.FlagType) string {
 	switch flagType {
-	case generator.StringType:
+	case types.StringType:
 		return "string"
-	case generator.IntType:
+	case types.IntType:
 		return "int64"
-	case generator.BoolType:
+	case types.BoolType:
 		return "bool"
-	case generator.FloatType:
+	case types.FloatType:
 		return "float64"
 	default:
 		return ""
@@ -122,7 +121,7 @@ func typeString(flagType generator.FlagType) string {
 // Go Funcs END
 
 // Generate generates the Go flag accessors for OpenFeature.
-func (g *genImpl) Generate(input generator.Input) error {
+func (g *genImpl) Generate(input types.Input) error {
 	funcs := template.FuncMap{
 		"FlagVarName":         flagVarName,
 		"FlagInitParam":       flagInitParam,
@@ -136,19 +135,17 @@ func (g *genImpl) Generate(input generator.Input) error {
 		BaseTmplData: input.BaseData,
 		GoPackage:    g.goPackage,
 	}
-	return generator.GenerateFile(funcs, g.file, golangTmpl, &td)
+	return generate.GenerateFile(funcs, golangTmpl, &td)
 }
 
 // Params are parameters for creating a Generator
 type Params struct {
-	File      string
 	GoPackage string
 }
 
 // NewGenerator creates a generator for Go.
-func NewGenerator(params Params) generator.Generator {
+func NewGenerator(params Params) types.Generator {
 	return &genImpl{
-		file:      params.File,
 		goPackage: params.GoPackage,
 	}
 }
