@@ -6,13 +6,18 @@ import (
 {{- end}}
 )
 
+type BooleanProvider func(ctx context.Context) (bool, error)
+type FloatProvider func(ctx context.Context) (float64, error)
+type IntProvider func(ctx context.Context) (int64, error)
+type StringProvider func(ctx context.Context) (string, error)
+
 var client *openfeature.Client = nil
 
 
 {{- range .Flags}}
 // {{.Docs}}
 var {{FlagVarName .Name}} = struct {
-    Value providers.{{ProviderType .Type}}    
+    Value {{ProviderType .Type}}
 }{
     Value: func(ctx context.Context) ({{TypeString .Type}}, error) {
         return client.{{FlagAccessFunc .Type}}(ctx, {{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, openfeature.EvaluationContext{})
