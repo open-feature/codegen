@@ -16,7 +16,6 @@ var Cmd = &cobra.Command{
 	Long:  `Generate Golang flag accessors for OpenFeature.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		params := golang.Params{
-			// Probably some conversion applied here, toLower and remove special characters.
 			GoPackage: viper.GetString(flagkeys.GoPackageName),
 		}
 		gen := golang.NewGenerator(params)
