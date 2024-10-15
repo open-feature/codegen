@@ -2,6 +2,7 @@ package generate
 
 import (
 	"codegen/cmd/generate/golang"
+	"codegen/cmd/generate/react"
 	"codegen/internal/flagkeys"
 
 	"github.com/spf13/cobra"
@@ -18,6 +19,7 @@ var Root = &cobra.Command{
 func init() {
 	// Add subcommands.
 	Root.AddCommand(golang.Cmd)
+	Root.AddCommand(react.Cmd)
 
 	// Add flags.
 	Root.PersistentFlags().String(flagkeys.FlagManifestPath, "", "Path to the flag manifest.")

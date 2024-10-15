@@ -1,0 +1,20 @@
+'use client';
+
+import {
+{{- range $_, $p := SupportImports .Flags}}
+	{{$p}},
+{{- end}}
+} from "@openfeature/react-sdk";
+{{ range .Flags}}
+/**
+* {{.Docs}}
+* 
+* **Details:**
+* - flag key: `{{ .Name}}`
+* - default value: `{{ .DefaultValue}}`
+* - type: `{{TypeString .Type}}`
+*/
+export const use{{FlagVarName .Name}} = (options: Parameters<typeof {{FlagAccessFunc .Type}}>[2]) => {
+  return {{FlagAccessFunc .Type}}({{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, options);
+};
+{{ end}}
