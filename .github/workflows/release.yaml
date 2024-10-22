@@ -33,16 +33,29 @@ jobs:
 
   go-release:
     needs: release-please
+    if: ${{ fromJSON(needs.release-please.outputs.release_created) }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: ${{ fromJSON(needs.release-please.outputs.release_created) }}
+      packages: write
+    env:
+      DOCKER_CLI_EXPERIMENTAL: "enabled"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           ref: ${{ needs.release-please.outputs.release_tag_name }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -52,9 +65,7 @@ jobs:
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
-          # either 'goreleaser' (default) or 'goreleaser-pro'
           distribution: goreleaser
-          # 'latest', 'nightly', or a semver
           version: "~> v2"
           args: release --clean
         env:
