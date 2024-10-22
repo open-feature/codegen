@@ -41,6 +41,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           ref: ${{ needs.release-please.outputs.release_tag_name }}
 
       - name: Set up Go
@@ -48,14 +49,11 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
-      - name: Build
-        run: go build -o openfeature ./src
-      
-      - uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
         with:
-          upload_url: ${{ needs.release-please.outputs.upload_url }}
-          asset_path: ./openfeature
-          asset_name: openfeature
-          asset_content_type: application/octet-stream
+          # either 'goreleaser' (default) or 'goreleaser-pro'
+          distribution: goreleaser
+          # 'latest', 'nightly', or a semver
+          version: "~> v2"
+          args: release --clean
