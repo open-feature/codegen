@@ -16,7 +16,7 @@ import (
 )
 
 // GenerateFile receives data for the Go template engine and outputs the contents to the file.
-// Intended to be invoked by each language generator with appropiate data.
+// Intended to be invoked by each language generator with appropriate data.
 func GenerateFile(funcs template.FuncMap, contents string, data types.TmplDataInterface) error {
 	contentsTmpl, err := template.New("contents").Funcs(funcs).Parse(contents)
 	if err != nil {
@@ -47,7 +47,7 @@ func GenerateFile(funcs template.FuncMap, contents string, data types.TmplDataIn
 	return nil
 }
 
-// Takes as input a generator and outputs file with the appropiate flag accessors.
+// Takes as input a generator and outputs file with the appropriate flag accessors.
 // The flag data is taken from the provided flag manifest.
 func CreateFlagAccessors(gen types.Generator) error {
 	bt, err := manifestutils.LoadData(viper.GetString(flagkeys.FlagManifestPath), gen.SupportedFlagTypes())

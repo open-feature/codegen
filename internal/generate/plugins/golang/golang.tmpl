@@ -17,7 +17,7 @@ var client *openfeature.Client = nil
 {{- range .Flags}}
 // {{.Docs}}
 var {{FlagVarName .Name}} = struct {
-    Value {{ProviderType .Type}}    
+    Value {{ProviderType .Type}}
 }{
     Value: func(ctx context.Context) ({{TypeString .Type}}, error) {
         return client.{{FlagAccessFunc .Type}}(ctx, {{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, openfeature.EvaluationContext{})
