@@ -1,0 +1,55 @@
+'use client';
+
+import {
+	useBooleanFlagDetails,
+	useNumberFlagDetails,
+	useStringFlagDetails,
+} from "@openfeature/react-sdk";
+
+/**
+* Discount percentage applied to purchases.
+* 
+* **Details:**
+* - flag key: `discountPercentage`
+* - default value: `0.15`
+* - type: `number`
+*/
+export const useDiscountPercentage = (options: Parameters<typeof useNumberFlagDetails>[2]) => {
+  return useNumberFlagDetails("discountPercentage", 0.15, options);
+};
+
+/**
+* Controls whether Feature A is enabled.
+* 
+* **Details:**
+* - flag key: `enableFeatureA`
+* - default value: `false`
+* - type: `boolean`
+*/
+export const useEnableFeatureA = (options: Parameters<typeof useBooleanFlagDetails>[2]) => {
+  return useBooleanFlagDetails("enableFeatureA", false, options);
+};
+
+/**
+* The message to use for greeting users.
+* 
+* **Details:**
+* - flag key: `greetingMessage`
+* - default value: `Hello there!`
+* - type: `string`
+*/
+export const useGreetingMessage = (options: Parameters<typeof useStringFlagDetails>[2]) => {
+  return useStringFlagDetails("greetingMessage", "Hello there!", options);
+};
+
+/**
+* Maximum allowed length for usernames.
+* 
+* **Details:**
+* - flag key: `usernameMaxLength`
+* - default value: `50`
+* - type: `number`
+*/
+export const useUsernameMaxLength = (options: Parameters<typeof useNumberFlagDetails>[2]) => {
+  return useNumberFlagDetails("usernameMaxLength", 50, options);
+};

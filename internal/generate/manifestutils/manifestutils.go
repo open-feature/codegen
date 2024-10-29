@@ -3,20 +3,23 @@ package manifestutils
 
 import (
 	flagmanifest "codegen/docs/schema/v0"
+	"codegen/internal/filesystem"
 	"codegen/internal/flagkeys"
 	"codegen/internal/generate/types"
 	"encoding/json"
 	"fmt"
-	"os"
+	"sort"
 	"strconv"
 
 	"github.com/santhosh-tekuri/jsonschema/v5"
+	"github.com/spf13/afero"
 	"github.com/spf13/viper"
 )
 
 // LoadData loads the data from the flag manifest.
 func LoadData(manifestPath string, supportedFlagTypes map[types.FlagType]bool) (*types.BaseTmplData, error) {
-	data, err := os.ReadFile(manifestPath)
+	fs := filesystem.FileSystem()
+	data, err := afero.ReadFile(fs, manifestPath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading contents from file %q", manifestPath)
 	}
@@ -101,5 +104,9 @@ func unmarshalFlagManifest(data []byte) (*types.BaseTmplData, error) {
 			Docs:         docs,
 		})
 	}
+	// Ensure consistency of order of flag generation.
+	sort.Slice(btData.Flags, func(i, j int) bool {
+		return btData.Flags[i].Name < btData.Flags[j].Name
+	})
 	return &btData, nil
 }

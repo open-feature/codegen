@@ -3,11 +3,11 @@ package generate
 
 import (
 	"bytes"
+	"codegen/internal/filesystem"
 	"codegen/internal/flagkeys"
 	"codegen/internal/generate/manifestutils"
 	"codegen/internal/generate/types"
 	"fmt"
-	"os"
 	"path"
 	"path/filepath"
 	"text/template"
@@ -28,10 +28,11 @@ func GenerateFile(funcs template.FuncMap, contents string, data types.TmplDataIn
 		return fmt.Errorf("error executing template: %v", err)
 	}
 	outputPath := data.BaseTmplDataInfo().OutputPath
-	if err := os.MkdirAll(filepath.Dir(outputPath), 0770); err != nil {
+	fs := filesystem.FileSystem()
+	if err := fs.MkdirAll(filepath.Dir(outputPath), 0770); err != nil {
 		return err
 	}
-	f, err := os.Create(path.Join(outputPath))
+	f, err := fs.Create(path.Join(outputPath))
 	if err != nil {
 		return fmt.Errorf("error creating file %q: %v", outputPath, err)
 	}
