@@ -39,7 +39,7 @@ func TestGenerateGoSuccess(t *testing.T) {
 	compareOutput(t, testFileGo, memoryOutputPath, fs)
 }
 
-func TestGenerateReactSucces(t *testing.T) {
+func TestGenerateReactSuccess(t *testing.T) {
 	// Constant paths.
 	const memoryManifestPath = "manifest/path.json"
 	const memoryOutputPath = "output/path.ts"
