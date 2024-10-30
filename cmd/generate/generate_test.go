@@ -12,7 +12,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func TestGenerateGoSucces(t *testing.T) {
+func TestGenerateGoSuccess(t *testing.T) {
 	// Constant paths.
 	const memoryManifestPath = "manifest/path.json"
 	const memoryOutputPath = "output/path.go"
