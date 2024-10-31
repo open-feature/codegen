@@ -7,7 +7,7 @@
   </picture>
 </p>
 
-<h2 align="center">OpenFeature CodeGen</h2>
+<h2 align="center">OpenFeature CLI</h2>
 <!-- x-hide-in-docs-end -->
 <!-- The 'github-badges' class is used in the docs -->
 <p align="center" class="github-badges">
@@ -21,28 +21,37 @@
 <!-- x-hide-in-docs-start -->
 
 > [!CAUTION]
-> OpenFeature CodeGen experimental!
-> Feel free to give it a shot and provide feedback but expect breaking changes.
+> The OpenFeature CLI is experimental!
+> Feel free to give it a shot and provide feedback, but expect breaking changes.
 
 [OpenFeature](https://openfeature.dev) is an open specification that provides a vendor-agnostic, community-driven API for feature flagging that works with your favorite feature flag management tool or in-house solution.
 <!-- x-hide-in-docs-end -->
 
-## Why CodeGen?
+## Overview
 
-CodeGen automates the creation of strongly typed flag accessors, minimizing configuration errors and provides a better developer experience.
+The OpenFeature CLI is a command-line tool designed to improve the developer experience of feature flags.
+The initial initial version of the CLI focuses on code generation.
+
+## Installation
+
+Download packaged binaries from the [releases page](https://github.com/open-feature/codegen/releases).
+
+### Why Code Generation?
+
+Code generation automates the creation of strongly typed flag accessors, minimizing configuration errors and providing a better developer experience.
 By generating these accessors, developers can avoid issues related to incorrect flag names or types, resulting in more reliable and maintainable code.
 
-## Goals
+### Goals
 
 - **Unified Flag Manifest Format**: Establish a standardized flag manifest format that can be easily converted from existing configurations.
 - **Strongly Typed Flag Accessors**: Develop a CLI tool to generate strongly typed flag accessors for multiple programming languages.
 - **Modular and Extensible Design**: Create a format that allows for future extensions and modularization of flags.
 
-## Non-Goals
+### Non-Goals
 
 - **Full Provider Integration**: The initial scope does not include creating tools to convert provider-specific configurations to the new flag manifest format.
 - **Validation of Flag Configs**: The project will not initially focus on validating flag configurations for consistency with the flag manifest.
-- **General-Purpose Configuration**: The project will not aim to create a general-purpose configuration tool for feature flags beyond the scope of the codegen tool.
+- **General-Purpose Configuration**: The project will not aim to create a general-purpose configuration tool for feature flags beyond the scope of the code generation tool.
 
 ## Support the project
 
