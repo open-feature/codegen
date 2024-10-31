@@ -3,14 +3,15 @@ package generate
 
 import (
 	"bytes"
-	"codegen/internal/filesystem"
-	"codegen/internal/flagkeys"
-	"codegen/internal/generate/manifestutils"
-	"codegen/internal/generate/types"
 	"fmt"
 	"path"
 	"path/filepath"
 	"text/template"
+
+	"github.com/open-feature/cli/internal/filesystem"
+	"github.com/open-feature/cli/internal/flagkeys"
+	"github.com/open-feature/cli/internal/generate/manifestutils"
+	"github.com/open-feature/cli/internal/generate/types"
 
 	"github.com/spf13/viper"
 )

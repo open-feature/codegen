@@ -1,9 +1,9 @@
 package generate
 
 import (
-	"codegen/cmd/generate/golang"
-	"codegen/cmd/generate/react"
-	"codegen/internal/flagkeys"
+	"github.com/open-feature/cli/cmd/generate/golang"
+	"github.com/open-feature/cli/cmd/generate/react"
+	"github.com/open-feature/cli/internal/flagkeys"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

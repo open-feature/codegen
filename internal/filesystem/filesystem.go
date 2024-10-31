@@ -2,7 +2,7 @@
 package filesystem
 
 import (
-	"codegen/internal/flagkeys"
+	"github.com/open-feature/cli/internal/flagkeys"
 
 	"github.com/spf13/afero"
 	"github.com/spf13/viper"

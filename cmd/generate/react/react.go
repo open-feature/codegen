@@ -1,8 +1,8 @@
 package react
 
 import (
-	"codegen/internal/generate"
-	"codegen/internal/generate/plugins/react"
+	"github.com/open-feature/cli/internal/generate"
+	"github.com/open-feature/cli/internal/generate/plugins/react"
 
 	"github.com/spf13/cobra"
 )

@@ -9,4 +9,4 @@ import _ "embed"
 var Schema string
 
 // SchemaPath proviees the current path and version of flag manifest.
-const SchemaPath = "codegen/docs/schema/v0/flag_manifest.json"
+const SchemaPath = "github.com/open-feature/cli/docs/schema/v0/flag_manifest.json"

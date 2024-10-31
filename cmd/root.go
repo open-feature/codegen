@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"codegen/cmd/generate"
+	"github.com/open-feature/cli/cmd/generate"
 
 	"github.com/spf13/cobra"
 )
