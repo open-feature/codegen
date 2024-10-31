@@ -29,7 +29,7 @@
 
 ## Overview
 
-The OpenFeature CLI is a command-line tool designed to improve the developer experience of feature flags.
+The OpenFeature CLI is a command-line tool designed to improve the developer experience when working with feature flags.
 The initial initial version of the CLI focuses on code generation.
 
 ## Installation
