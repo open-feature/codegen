@@ -72,9 +72,9 @@ dockers:
 docker_manifests:
 - name_template: ghcr.io/open-feature/cli:{{ .Version }}
   image_templates:
-  - ghcr.io/open-feature/codegen:{{ .Version }}-amd64
-  - ghcr.io/open-feature/codegen:{{ .Version }}-arm64
+  - ghcr.io/open-feature/cli:{{ .Version }}-amd64
+  - ghcr.io/open-feature/cli:{{ .Version }}-arm64
 - name_template: ghcr.io/open-feature/cli:latest
   image_templates:
-  - ghcr.io/open-feature/codegen:{{ .Version }}-amd64
-  - ghcr.io/open-feature/codegen:{{ .Version }}-arm64
+  - ghcr.io/open-feature/cli:{{ .Version }}-amd64
+  - ghcr.io/open-feature/cli:{{ .Version }}-arm64
