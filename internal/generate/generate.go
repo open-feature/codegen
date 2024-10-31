@@ -30,7 +30,7 @@ func GenerateFile(funcs template.FuncMap, contents string, data types.TmplDataIn
 	}
 	outputPath := data.BaseTmplDataInfo().OutputPath
 	fs := filesystem.FileSystem()
-	if err := fs.MkdirAll(filepath.Dir(outputPath), 0770); err != nil {
+	if err := fs.MkdirAll(filepath.Dir(outputPath), 0660); err != nil {
 		return err
 	}
 	f, err := fs.Create(path.Join(outputPath))
