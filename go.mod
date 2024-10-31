@@ -32,6 +32,7 @@ require (
 
 require (
 	github.com/go-logr/logr v1.4.2 // indirect
+	github.com/google/go-cmp v0.6.0
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect

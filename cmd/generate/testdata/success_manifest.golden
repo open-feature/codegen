@@ -1,0 +1,32 @@
+{
+    "flags": {
+      "enableFeatureA": {
+        "flagType": "boolean",
+        "defaultValue": false,
+        "description": "Controls whether Feature A is enabled."
+      },
+      "usernameMaxLength": {
+        "flagType": "integer",
+        "defaultValue": 50,
+        "description": "Maximum allowed length for usernames."
+      },
+      "greetingMessage": {
+        "flagType": "string",
+        "defaultValue": "Hello there!",
+        "description": "The message to use for greeting users."
+      },
+      "discountPercentage": {
+        "flagType": "float",
+        "defaultValue": 0.15,
+        "description": "Discount percentage applied to purchases."
+      },
+      "themeCustomization": {
+        "flagType": "object",
+        "defaultValue": {
+          "primaryColor": "#007bff",
+          "secondaryColor": "#6c757d"
+        },
+        "description": "Allows customization of theme colors."
+      }
+    }
+  }

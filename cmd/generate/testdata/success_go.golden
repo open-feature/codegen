@@ -1,0 +1,49 @@
+package testpackage
+
+import (
+	"context"
+	"github.com/open-feature/go-sdk/openfeature"
+)
+
+type BooleanProvider func(ctx context.Context) (bool, error)
+type FloatProvider func(ctx context.Context) (float64, error)
+type IntProvider func(ctx context.Context) (int64, error)
+type StringProvider func(ctx context.Context) (string, error)
+
+var client *openfeature.Client = nil
+// Discount percentage applied to purchases.
+var DiscountPercentage = struct {
+    Value FloatProvider
+}{
+    Value: func(ctx context.Context) (float64, error) {
+        return client.FloatValue(ctx, "discountPercentage", 0.15, openfeature.EvaluationContext{})
+    },
+}
+// Controls whether Feature A is enabled.
+var EnableFeatureA = struct {
+    Value BooleanProvider
+}{
+    Value: func(ctx context.Context) (bool, error) {
+        return client.BooleanValue(ctx, "enableFeatureA", false, openfeature.EvaluationContext{})
+    },
+}
+// The message to use for greeting users.
+var GreetingMessage = struct {
+    Value StringProvider
+}{
+    Value: func(ctx context.Context) (string, error) {
+        return client.StringValue(ctx, "greetingMessage", "Hello there!", openfeature.EvaluationContext{})
+    },
+}
+// Maximum allowed length for usernames.
+var UsernameMaxLength = struct {
+    Value IntProvider
+}{
+    Value: func(ctx context.Context) (int64, error) {
+        return client.IntValue(ctx, "usernameMaxLength", 50, openfeature.EvaluationContext{})
+    },
+}
+
+func init() {
+	client = openfeature.NewClient("testpackage")
+}

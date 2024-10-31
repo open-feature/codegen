@@ -4,9 +4,9 @@ import "codegen/cmd"
 
 var (
 	// Overridden by Go Releaser at build time
-	version    = "dev"
-	commit     = "HEAD"
-	date       = "unknown"
+	version = "dev"
+	commit  = "HEAD"
+	date    = "unknown"
 )
 
 func main() {
