@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"text/template"
 
-	"codegen/internal/generate"
-	"codegen/internal/generate/types"
+	"github.com/open-feature/cli/internal/generate"
+	"github.com/open-feature/cli/internal/generate/types"
 
 	"github.com/iancoleman/strcase"
 )

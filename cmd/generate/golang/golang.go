@@ -1,9 +1,9 @@
 package golang
 
 import (
-	"codegen/internal/flagkeys"
-	"codegen/internal/generate"
-	"codegen/internal/generate/plugins/golang"
+	"github.com/open-feature/cli/internal/flagkeys"
+	"github.com/open-feature/cli/internal/generate"
+	"github.com/open-feature/cli/internal/generate/plugins/golang"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
