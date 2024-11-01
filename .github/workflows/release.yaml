@@ -33,7 +33,7 @@ jobs:
 
   go-release:
     needs: release-please
-    if: ${{ fromJSON(needs.release-please.outputs.release_created) }}
+    if: ${{ fromJSON(needs.release-please.outputs.release_created || false) }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
