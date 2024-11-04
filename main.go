@@ -1,6 +1,6 @@
 package main
 
-import "codegen/cmd"
+import "github.com/open-feature/cli/cmd"
 
 var (
 	// Overridden by Go Releaser at build time

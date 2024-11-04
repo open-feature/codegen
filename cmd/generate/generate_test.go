@@ -1,10 +1,11 @@
 package generate
 
 import (
-	"codegen/internal/flagkeys"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/open-feature/cli/internal/flagkeys"
 
 	"github.com/google/go-cmp/cmp"
 

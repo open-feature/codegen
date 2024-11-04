@@ -1,4 +1,4 @@
-module codegen
+module github.com/open-feature/cli
 
 go 1.22.5
 

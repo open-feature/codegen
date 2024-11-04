@@ -7,7 +7,7 @@
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
 
 version: 2
-project_name: openfeature
+project_name: openfeature-cli
 
 before:
   hooks:
@@ -40,39 +40,41 @@ archives:
 report_sizes: true
 
 dockers:
-- image_templates: ["ghcr.io/open-feature/codegen:{{ .Version }}-amd64"]
+- image_templates: ["ghcr.io/open-feature/cli:{{ .Version }}-amd64"]
   dockerfile: Dockerfile
   use: buildx
   build_flag_templates:
   - --platform=linux/amd64
   - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/open-feature/codegen
-  - --label=org.opencontainers.image.source=https://github.com/open-feature/codegen
+  - --label=org.opencontainers.image.url=https://github.com/open-feature/cli
+  - --label=org.opencontainers.image.source=https://github.com/open-feature/cli
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+  - --label=org.opencontainers.image.description="OpenFeature’s official command-line tool"
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
 
-- image_templates: ["ghcr.io/open-feature/codegen:{{ .Version }}-arm64"]
+- image_templates: ["ghcr.io/open-feature/cli:{{ .Version }}-arm64"]
   goarch: arm64
   dockerfile: Dockerfile
   use: buildx
   build_flag_templates:
   - --platform=linux/arm64
   - --label=org.opencontainers.image.title={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/open-feature/codegen
-  - --label=org.opencontainers.image.source=https://github.com/open-feature/codegen
+  - --label=org.opencontainers.image.url=https://github.com/open-feature/cli
+  - --label=org.opencontainers.image.source=https://github.com/open-feature/cli
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+  - --label=org.opencontainers.image.description="OpenFeature’s official command-line tool"
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=Apache-2.0
 
 docker_manifests:
-- name_template: ghcr.io/open-feature/codegen:{{ .Version }}
+- name_template: ghcr.io/open-feature/cli:{{ .Version }}
   image_templates:
-  - ghcr.io/open-feature/codegen:{{ .Version }}-amd64
-  - ghcr.io/open-feature/codegen:{{ .Version }}-arm64
-- name_template: ghcr.io/open-feature/codegen:latest
+  - ghcr.io/open-feature/cli:{{ .Version }}-amd64
+  - ghcr.io/open-feature/cli:{{ .Version }}-arm64
+- name_template: ghcr.io/open-feature/cli:latest
   image_templates:
-  - ghcr.io/open-feature/codegen:{{ .Version }}-amd64
-  - ghcr.io/open-feature/codegen:{{ .Version }}-arm64
+  - ghcr.io/open-feature/cli:{{ .Version }}-amd64
+  - ghcr.io/open-feature/cli:{{ .Version }}-arm64

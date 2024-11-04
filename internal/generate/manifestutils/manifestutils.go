@@ -2,14 +2,15 @@
 package manifestutils
 
 import (
-	flagmanifest "codegen/docs/schema/v0"
-	"codegen/internal/filesystem"
-	"codegen/internal/flagkeys"
-	"codegen/internal/generate/types"
 	"encoding/json"
 	"fmt"
 	"sort"
 	"strconv"
+
+	flagmanifest "github.com/open-feature/cli/docs/schema/v0"
+	"github.com/open-feature/cli/internal/filesystem"
+	"github.com/open-feature/cli/internal/flagkeys"
+	"github.com/open-feature/cli/internal/generate/types"
 
 	"github.com/santhosh-tekuri/jsonschema/v5"
 	"github.com/spf13/afero"
