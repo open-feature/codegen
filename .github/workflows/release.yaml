@@ -16,11 +16,13 @@ jobs:
       pull-requests: write # for googleapis/release-please-action to create release PR
     # Release-please creates a PR that tracks all changes
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: google-github-actions/release-please-action@v3
         id: release
         with:
+          command: manifest
           token: ${{secrets.RELEASE_PLEASE_ACTION_TOKEN}}
-          target-branch: main
+          default-branch: main
+          signoff: "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>"
       - name: Dump Release Please Output
         env:
           RELEASE_PLEASE_OUTPUT: ${{ toJSON(steps.release.outputs) }}
