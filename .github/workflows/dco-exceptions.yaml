@@ -1,5 +1,3 @@
-# based on https://github.com/onnx/onnx/blob/main/.github/workflows/dco_merge_group.yml
-
 name: DCO
 on:
   merge_group:
@@ -10,6 +8,5 @@ permissions:  # set top-level default permissions as security best practice
 jobs:
   DCO:
     runs-on: ubuntu-latest
-    if: ${{ github.actor != 'dependabot[bot]' }}
     steps:
-      - run: echo "dummy DCO workflow (it won't run any check actually) to trigger by merge_group in order to enable merge queue"
+      - run: echo "skipping DCO check for the merge group"
