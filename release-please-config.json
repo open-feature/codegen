@@ -1,4 +1,5 @@
 {
+  "signoff": "OpenFeature Bot <109696520+openfeaturebot@users.noreply.github.com>",
   "packages": {
     ".": {
       "release-type": "go",
