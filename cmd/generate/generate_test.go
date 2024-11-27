@@ -70,7 +70,7 @@ func readOsFileAndWriteToMemMap(t *testing.T, inputPath string, memPath string, 
 	if err != nil {
 		t.Fatalf("error reading file %q: %v", inputPath, err)
 	}
-	if err := memFs.MkdirAll(filepath.Dir(memPath), 0660); err != nil {
+	if err := memFs.MkdirAll(filepath.Dir(memPath), os.ModePerm); err != nil {
 		t.Fatalf("error creating directory %q: %v", filepath.Dir(memPath), err)
 	}
 	f, err := memFs.Create(memPath)
