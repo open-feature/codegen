@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.9](https://github.com/open-feature/cli/compare/v0.1.8...v0.1.9) (2024-11-27)
+
+
+### 🧹 Chore
+
+* remove empty testutils package ([#55](https://github.com/open-feature/cli/issues/55)) ([9dc1d9f](https://github.com/open-feature/cli/commit/9dc1d9fbc3751b53956e4c61cd43df63edca9f19))
+* update back to previous mkdir permissions ([#61](https://github.com/open-feature/cli/issues/61)) ([515b534](https://github.com/open-feature/cli/commit/515b5340b5d61879bf2fdb786ea38cbbe0a24247))
+
 ## [0.1.8](https://github.com/open-feature/cli/compare/v0.1.7...v0.1.8) (2024-10-31)
 
 
