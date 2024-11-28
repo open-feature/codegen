@@ -7,17 +7,13 @@ import (
 {{- end}}
 )
 
-type BooleanProvider func(evalCtx openfeature.EvaluationContext) bool
-type BooleanProviderE func(ctx context.Context, evalCtx openfeature.EvaluationContext) (bool, error)
+type BooleanProvider func(ctx context.Context, evalCtx openfeature.EvaluationContext) (bool, error)
 type BooleanProviderDetails func(ctx context.Context, evalCtx openfeature.EvaluationContext) (openfeature.BooleanEvaluationDetails, error)
-type FloatProvider func(evalCtx openfeature.EvaluationContext) float64
-type FloatProviderE func(ctx context.Context, evalCtx openfeature.EvaluationContext) (float64, error)
+type FloatProvider func(ctx context.Context, evalCtx openfeature.EvaluationContext) (float64, error)
 type FloatProviderDetails func(ctx context.Context, evalCtx openfeature.EvaluationContext) (openfeature.FloatEvaluationDetails, error)
-type IntProvider func(evalCtx openfeature.EvaluationContext) int64
-type IntProviderE func(ctx context.Context, evalCtx openfeature.EvaluationContext) (int64, error)
+type IntProvider func(ctx context.Context, evalCtx openfeature.EvaluationContext) (int64, error)
 type IntProviderDetails func(ctx context.Context, evalCtx openfeature.EvaluationContext) (openfeature.IntEvaluationDetails, error)
-type StringProvider func(evalCtx openfeature.EvaluationContext) string
-type StringProviderE func(ctx context.Context, evalCtx openfeature.EvaluationContext) (string, error)
+type StringProvider func(ctx context.Context, evalCtx openfeature.EvaluationContext) (string, error)
 type StringProviderDetails func(ctx context.Context, evalCtx openfeature.EvaluationContext) (openfeature.StringEvaluationDetails, error)
 
 var client openfeature.IClient = nil
@@ -26,24 +22,15 @@ var client openfeature.IClient = nil
 {{- range .Flags}}
 // {{.Docs}}
 var {{FlagVarName .Name}} = struct {
-    // Value provides the value of the flag {{FlagVarName .Name}}.
-    // Warning: Value will ignore any evaluation errors.
-    // If you want obtain the value as well as the error, use ValueE
-    // or ValueWithDetails.
-    Value {{OpenFeatureType .Type}}Provider
-    // ValueE returns the value of the flag {{FlagVarName .Name}},
+    // Value returns the value of the flag {{FlagVarName .Name}},
     // as well as the evaluation error, if present.
-    ValueE {{OpenFeatureType .Type}}ProviderE
+    Value {{OpenFeatureType .Type}}Provider
+
     // ValueWithDetails returns the value of the flag {{FlagVarName .Name}},
     // the evaluation error, if any, and the evaluation details.
     ValueWithDetails {{OpenFeatureType .Type}}ProviderDetails
 }{
-    Value: func(evalCtx openfeature.EvaluationContext) {{TypeString .Type}} {
-        ctx := context.Background()
-        val, _ := client.{{OpenFeatureType .Type}}Value(ctx, {{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, evalCtx)
-        return val
-    },
-    ValueE: func(ctx context.Context, evalCtx openfeature.EvaluationContext) ({{TypeString .Type}}, error) {
+    Value: func(ctx context.Context, evalCtx openfeature.EvaluationContext) ({{TypeString .Type}}, error) {
         return client.{{OpenFeatureType .Type}}Value(ctx, {{FlagInitParam .Name}}, {{DefaultValueLiteral .}}, evalCtx)
     },
     ValueWithDetails: func(ctx context.Context, evalCtx openfeature.EvaluationContext) (openfeature.{{OpenFeatureType .Type}}EvaluationDetails, error){
