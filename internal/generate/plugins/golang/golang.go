@@ -53,16 +53,32 @@ func flagInitParam(flagName string) string {
 	return strconv.Quote(flagName)
 }
 
-func openFeatureType(t types.FlagType) string {
+// flagVarType returns the Go type for a flag's proto definition.
+func providerType(t types.FlagType) string {
 	switch t {
 	case types.IntType:
-		return "Int"
+		return "IntProvider"
 	case types.FloatType:
-		return "Float"
+		return "FloatProvider"
 	case types.BoolType:
-		return "Boolean"
+		return "BooleanProvider"
 	case types.StringType:
-		return "String"
+		return "StringProvider"
+	default:
+		return ""
+	}
+}
+
+func flagAccessFunc(t types.FlagType) string {
+	switch t {
+	case types.IntType:
+		return "IntValue"
+	case types.FloatType:
+		return "FloatValue"
+	case types.BoolType:
+		return "BooleanValue"
+	case types.StringType:
+		return "StringValue"
 	default:
 		return ""
 	}
@@ -109,7 +125,8 @@ func (g *genImpl) Generate(input types.Input) error {
 	funcs := template.FuncMap{
 		"FlagVarName":         flagVarName,
 		"FlagInitParam":       flagInitParam,
-		"OpenFeatureType":     openFeatureType,
+		"ProviderType":        providerType,
+		"FlagAccessFunc":      flagAccessFunc,
 		"SupportImports":      supportImports,
 		"DefaultValueLiteral": defaultValueLiteral,
 		"TypeString":          typeString,
