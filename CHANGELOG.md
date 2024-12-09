@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/open-feature/cli/compare/v0.1.9...v0.1.10) (2024-12-09)
+
+
+### ✨ New Features
+
+* update golang output ([#63](https://github.com/open-feature/cli/issues/63)) ([0e7db02](https://github.com/open-feature/cli/commit/0e7db0209e13b672329fc2f4578cdb700db7b826))
+
 ## [0.1.9](https://github.com/open-feature/cli/compare/v0.1.8...v0.1.9) (2024-11-27)
 
 
